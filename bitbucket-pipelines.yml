@@ -1,0 +1,47 @@
+image: inforitnl/dotnet-build:5.3.0
+definitions:
+  steps:
+    - step: &pack-unstable
+        name: Build unstable package
+        script:
+          - dotnet pack Inforit.GeoJson/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE --output output
+            -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:EmbedUntrackedSources=true -p:PublishRepositoryUrl=true -p:GenerateDocumentationFile=true
+            -p:PackageVersion=$(cat Inforit.GeoJson/*.csproj | grep -oP '(?<=<Version>).*?(?=</Version>)')-build$(printf '%05d' $BITBUCKET_BUILD_NUMBER)
+        artifacts:
+          - output/**
+    - step: &pack-stable
+        name: Build stable package
+        script:
+          - dotnet pack Inforit.GeoJson/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE --output output
+            -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:EmbedUntrackedSources=true -p:PublishRepositoryUrl=true -p:GenerateDocumentationFile=true
+        artifacts:
+          - output/**
+    - step: &publish-to-myget
+        name: Publish package to myget
+        script:
+          - for nupkg in output/*.nupkg; do dotnet nuget push $nupkg -k $MYGET_ACCESS_TOKEN -s $MYGET_PUBLISH_PACKAGE_SOURCE; done
+    - step: &sonarcloud
+        name: Starting SonarCloud Analysis for a commit
+        script:
+          - dotnet sonarscanner begin /k:"${SONAR_PROJECT}" /d:"sonar.login=${SONAR_TOKEN}" /o:"inforit-nl" /d:"sonar.host.url=https://sonarcloud.io"
+          - dotnet build Inforit.GeoJson/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE
+          - dotnet sonarscanner end /d:"sonar.login=${SONAR_TOKEN}"
+
+pipelines:
+  default:
+    - step: *pack-unstable
+    - parallel:
+        - step: *publish-to-myget
+        - step: *sonarcloud
+  branches:
+    master:
+      - step: *pack-stable
+      - parallel:
+          - step: *publish-to-myget
+          - step: *sonarcloud
+  pull-requests:
+    "**":
+      - step: *sonarcloud
+  custom:
+    analyze-with-sonarcloud:
+      - step: *sonarcloud

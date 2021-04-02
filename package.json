@@ -1,0 +1,32 @@
+{
+  "name": "inforit-geojson-converters",
+  "version": "1.0..",
+  "description": "Package with support for GeoJson (converters)",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "dotnet tool install --global dotnet-format",
+    "format": "dotnet format"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/inforit-nl/inforit-geojson-converters.git"
+  },
+  "author": "Patrick Heemskerk <pheemskerk@inforit.nl>",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/inforit-nl/inforit-nuget-package-base#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.cs": [
+      "node format.js",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.1"
+  }
+}
