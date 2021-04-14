@@ -1,18 +1,14 @@
-﻿using System.Globalization;
-using System;
+﻿using System;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 using BAMCIS.GeoJSON;
-
-using Inforit.GeoJson.Converters;
 using Inforit.GeoJson.Converters.Extensions;
 
 namespace Inforit.GeoJson.Converters.sample
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var sampleJson = @"{
                 ""type"": ""Feature"",
