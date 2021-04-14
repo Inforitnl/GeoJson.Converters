@@ -12,6 +12,6 @@ services
     .AddJsonOptions(options => options.JsonSerializerOptions.AddConverters());
 ```
 
-## Getting started
+## Contributor information
 
-Keep in mind you maintain the version (following semver) in the project file.
+When making a PR please have a look at the [CONTRIBUTING] document in this repository.
