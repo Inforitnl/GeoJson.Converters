@@ -8,11 +8,6 @@ email, or any other method with the owners of this repository before making a ch
 Please keep the scope of a PR down to a single change.
 You can make multiple prs to change multiple things though.
 
-## builds
-
-Don't modify anything in the build/ directory please.
-This will be done on release.
-
 ## Pull Request Process
 
 1. Code away :D
