@@ -1,6 +1,6 @@
 {
   "name": "inforit-geojson-converters",
-  "version": "1.0..",
+  "version": "1.0.0",
   "description": "Package with support for GeoJson (converters)",
   "main": "index.js",
   "scripts": {
