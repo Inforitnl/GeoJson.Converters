@@ -4,15 +4,15 @@ definitions:
     - step: &pack-unstable
         name: Build unstable package
         script:
-          - dotnet pack Inforit.GeoJson/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE --output output
+          - dotnet pack Inforit.GeoJson.Converters/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE --output output
             -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:EmbedUntrackedSources=true -p:PublishRepositoryUrl=true -p:GenerateDocumentationFile=true
-            -p:PackageVersion=$(cat Inforit.GeoJson/*.csproj | grep -oP '(?<=<Version>).*?(?=</Version>)')-build$(printf '%05d' $BITBUCKET_BUILD_NUMBER)
+            -p:PackageVersion=$(cat Inforit.GeoJson.Converters/*.csproj | grep -oP '(?<=<Version>).*?(?=</Version>)')-build$(printf '%05d' $BITBUCKET_BUILD_NUMBER)
         artifacts:
           - output/**
     - step: &pack-stable
         name: Build stable package
         script:
-          - dotnet pack Inforit.GeoJson/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE --output output
+          - dotnet pack Inforit.GeoJson.Converters/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE --output output
             -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:EmbedUntrackedSources=true -p:PublishRepositoryUrl=true -p:GenerateDocumentationFile=true
         artifacts:
           - output/**
@@ -24,7 +24,7 @@ definitions:
         name: Starting SonarCloud Analysis for a commit
         script:
           - dotnet sonarscanner begin /k:"${SONAR_PROJECT}" /d:"sonar.login=${SONAR_TOKEN}" /o:"inforit-nl" /d:"sonar.host.url=https://sonarcloud.io"
-          - dotnet build Inforit.GeoJson/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE
+          - dotnet build Inforit.GeoJson.Converters/*.csproj --source $INTERNAL_NUGET_PACKAGE_SOURCE --source $PUBLIC_NUGET_PACKAGE_SOURCE
           - dotnet sonarscanner end /d:"sonar.login=${SONAR_TOKEN}"
 
 pipelines:
