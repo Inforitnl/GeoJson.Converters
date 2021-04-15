@@ -3,17 +3,14 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Patrick Heemskerk</Authors>
     <Company>Inforit</Company>
-    <PackageProjectUrl>https://bitbucket.org/inforit-nl/inforit.geojson.converters</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Inforitnl/GeoJson.Converters</PackageProjectUrl>
     <Version>1.0.0</Version>
     <ProjectGuid>{76dd9dda-6ae7-4112-a02c-51e73d5f1ba6}</ProjectGuid>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.Bitbucket.Git" Version="1.0.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
