@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Inforit.GeoJson.Converters/Inforit.GeoJson.Converters.csproj" PrivateAssets="All" />
+
+    <PackageReference Include="GeoJSON" Version="2.3.1" />
+  </ItemGroup>
+
+</Project>
